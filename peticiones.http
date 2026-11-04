@@ -1,0 +1,34 @@
+GET HTTP://127.0.0.1:3000/usuarios/3
+
+
+###
+post HTTP://127.0.0.1:3000/saludo
+Content-Type: application/json
+
+{
+    "nombre": "Ana"
+}
+
+###
+post HTTP://127.0.0.1:3000/usuarios
+Content-Type: application/json
+
+{
+  "id": 4,
+  "nombre": "Pedro"
+}
+
+###
+post HTTP://127.0.0.1:3000/usuarios
+Content-Type: application/json
+
+{
+  "id": 5
+}
+
+###
+DELETE  HTTP://127.0.0.1:3000/usuarios/4
+
+###
+//del router al index.js
+GET HTTP://127.0.0.1:3000/usuarios/prueba
