@@ -1,4 +1,8 @@
-GET HTTP://127.0.0.1:3000/usuarios/3
+GET HTTP://127.0.0.1:3000/usuarios/8
+
+###
+
+GET HTTP://127.0.0.1:3000/usuarios
 
 
 ###
@@ -14,8 +18,8 @@ post HTTP://127.0.0.1:3000/usuarios
 Content-Type: application/json
 
 {
-  "id": 4,
-  "nombre": "Pedro"
+  "id": 8,
+  "nombre": "Laura"
 }
 
 ###
@@ -27,8 +31,22 @@ Content-Type: application/json
 }
 
 ###
-DELETE  HTTP://127.0.0.1:3000/usuarios/4
+DELETE  HTTP://127.0.0.1:3000/usuarios/3
 
 ###
 //del router al index.js
 GET HTTP://127.0.0.1:3000/usuarios/prueba
+
+###
+
+PATCH  HTTP://127.0.0.1:3000/usuarios/3
+Content-Type: application/json
+
+{
+  "nombre": "Augusto"
+}
+
+###
+
+//request con query params..
+GET HTTP://127.0.0.1:3000/usuarios/buscar?nombre=Pedro
