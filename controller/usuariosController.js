@@ -3,7 +3,8 @@ const usuarioServicio = require("../service/usuariosService.js")
 
 
 const obtenerUsuarios = (req, res) => {
-  res.json(usuarios);
+    const resultado = usuarioServicio.listarUsuarios ()
+  res.json(resultado);
 };
 
 
