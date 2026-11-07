@@ -31,21 +31,28 @@ const buscarUsuarioPorIdServicio = id =>{
     return resultado
 }
 
-const actualizarUsuarioporIdServicio = (id, body) =>{
-  if(!body || !body.nombre){
-    return "falta nombre"
-  }
-  const indiceActualizar = usuarios.findIndex(usuario => usuario.id === parseInt(id))
-  if(indiceActualizar === -1 ){
-    return null
-  }
-  usuarios[indiceActualizar] = { ...usuarios[indiceActualizar],
-    ...body}
-  return usuarios[indiceActualizar]
+const actualizarUsuarioporIdServicio = (id, body) => {
+    if (!body || typeof body !== "object" || Array.isArray(body)) {
+        return "datos invalidos"
+    }
+    const { id: idIgnorado, ...cambios } = body
+    const indiceActualizar = usuarios.findIndex(
+        usuario => usuario.id === parseInt(id)
+    )
+    if (indiceActualizar === -1) {
+        return null
+    }
+    usuarios[indiceActualizar] = {...usuarios[indiceActualizar], ...cambios}
+    return usuarios[indiceActualizar]
 }
 
 const eliminarUsuarioServicio = (id)=>{
-  
+  const indiceBorrar = usuarios.findIndex(usuario=>usuario.id === parseInt(id))
+  if( indiceBorrar === -1){
+    return null
+  }
+  const usuarioBorrado = usuarios.splice(indiceBorrar, 1)
+  return usuarioBorrado
 }
 
 
@@ -54,5 +61,6 @@ module.exports = {
   buscarUsuarioPorIdServicio,
   crearUsuarioServicio,
   buscarUsuarioPorNombreServicio,
-  actualizarUsuarioporIdServicio
+  actualizarUsuarioporIdServicio,
+  eliminarUsuarioServicio
 };
