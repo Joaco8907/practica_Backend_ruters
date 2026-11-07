@@ -1,4 +1,4 @@
-GET HTTP://127.0.0.1:3000/usuarios/3
+GET HTTP://127.0.0.1:3000/usuarios/5
 
 ###
 
@@ -31,7 +31,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE  HTTP://127.0.0.1:3000/usuarios/3
+DELETE  HTTP://127.0.0.1:3000/usuarios/8
 
 ###
 //del router al index.js

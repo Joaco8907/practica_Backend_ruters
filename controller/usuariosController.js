@@ -10,20 +10,21 @@ const obtenerUsuarios = (req, res) => {
 
 const crearUsuario = (req, res) => {
   const nuevoUsuario = req.body;
-  if (!nuevoUsuario || !nuevoUsuario.nombre) {
-    return res.status(400).send("ERROR: Falta el nombre del usuario");
+  const respuesta = usuarioServicio.crearUsuario(nuevoUsuario)
+  if(respuesta === null){
+    return res.status(404).
+    json({mensaje:"no se pudo crear un nuevo usuario"});
   }
-  usuarios.push(nuevoUsuario);
-  res.status(201).json(nuevoUsuario);
+    res.status(201).json(respuesta);
 };
 
 const buscarUsuarioPorNombre = (req, res) => {
-    const loQueBusca = req.query.nombre
-    const esta = usuarios.find(busco => busco.nombre === loQueBusca)
-    if (esta === undefined) {
+    const nombre = req.query.nombre
+    const resultado = usuarioServicio.buscarUsuarioPorNombre(nombre)
+    if (resultado === null) {
         return res.status(404).send("no se encontro su busqueda")
     }
-    res.json(esta)
+    res.json(resultado)
 }
 
 
@@ -32,9 +33,9 @@ const buscarUsuarioPorNombre = (req, res) => {
 // funciones por id
 const obtenerUsuariosPorId = (req, res) => {
   const id = parseInt(req.params.id);
-  const resultado = usuarios.find((usuario) => usuario.id === id);
-  if (resultado === undefined) {
-    return res.status(404).send("Usuario no encontrado.");
+  const resultado = usuarioServicio.buscarUsuarioPorId(id)
+  if (resultado === null) {
+    return res.status(404).json({mensaje:"Usuario no encontrado."});
   }
   res.json(resultado);
 };
