@@ -1,28 +1,25 @@
+GET HTTP://127.0.0.1:3000/usuarios
+
+###
+
 GET HTTP://127.0.0.1:3000/usuarios/5
 
 ###
 
-GET HTTP://127.0.0.1:3000/usuarios
-
-
-###
-post HTTP://127.0.0.1:3000/saludo
-Content-Type: application/json
-
-{
-    "nombre": "Ana"
-}
+//request con query params..
+GET HTTP://127.0.0.1:3000/usuarios/buscar?nombre=Joaquin
 
 ###
 post HTTP://127.0.0.1:3000/usuarios
 Content-Type: application/json
 
 {
-  "id": 8,
-  "nombre": "Laura"
+  "id": 3,
+  "nombre": "Sergio"
 }
 
 ###
+//esto es para demostrar que no se puede crear un usuario sin todos sus datos
 post HTTP://127.0.0.1:3000/usuarios
 Content-Type: application/json
 
@@ -31,15 +28,8 @@ Content-Type: application/json
 }
 
 ###
-DELETE  HTTP://127.0.0.1:3000/usuarios/8
 
-###
-//del router al index.js
-GET HTTP://127.0.0.1:3000/usuarios/prueba
-
-###
-
-PATCH  HTTP://127.0.0.1:3000/usuarios/3
+PATCH   HTTP://127.0.0.1:3000/usuarios/3
 Content-Type: application/json
 
 {
@@ -47,6 +37,15 @@ Content-Type: application/json
 }
 
 ###
+put HTTP://127.0.0.1:3000/usuarios/3
+Content-Type: application/json
 
-//request con query params..
-GET HTTP://127.0.0.1:3000/usuarios/buscar?nombre=Joaquin
+{
+  "id" : 3,
+  "nombre": "pepe"
+}
+
+###
+DELETE  HTTP://127.0.0.1:3000/usuarios/3
+
+

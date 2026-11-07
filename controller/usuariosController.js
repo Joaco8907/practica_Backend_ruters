@@ -3,14 +3,14 @@ const usuarioServicio = require("../service/usuariosService.js")
 
 
 const obtenerUsuarios = (req, res) => {
-    const resultado = usuarioServicio.listarUsuarios ()
+    const resultado = usuarioServicio.listarUsuariosServicio ()
   res.json(resultado);
 };
 
 
 const crearUsuario = (req, res) => {
   const nuevoUsuario = req.body;
-  const respuesta = usuarioServicio.crearUsuario(nuevoUsuario)
+  const respuesta = usuarioServicio.crearUsuarioServicio(nuevoUsuario)
   if(respuesta === null){
     return res.status(404).
     json({mensaje:"no se pudo crear un nuevo usuario"});
@@ -20,7 +20,7 @@ const crearUsuario = (req, res) => {
 
 const buscarUsuarioPorNombre = (req, res) => {
     const nombre = req.query.nombre
-    const resultado = usuarioServicio.buscarUsuarioPorNombre(nombre)
+    const resultado = usuarioServicio.buscarUsuarioPorNombreServicio(nombre)
     if (resultado === null) {
         return res.status(404).send("no se encontro su busqueda")
     }
@@ -28,12 +28,10 @@ const buscarUsuarioPorNombre = (req, res) => {
 }
 
 
-
-
 // funciones por id
 const obtenerUsuariosPorId = (req, res) => {
   const id = parseInt(req.params.id);
-  const resultado = usuarioServicio.buscarUsuarioPorId(id)
+  const resultado = usuarioServicio.buscarUsuarioPorIdServicio(id)
   if (resultado === null) {
     return res.status(404).json({mensaje:"Usuario no encontrado."});
   }
@@ -41,17 +39,16 @@ const obtenerUsuariosPorId = (req, res) => {
 };
 
 const ActualizarUsuarioPorId = (req, res) => {
-    const nombre_a_actualizar = req.body.nombre
-    const id = parseInt(req.params.id)
-    const indice_a_actualizar = usuarios.findIndex(usuario => usuario.id === id)
-    if (indice_a_actualizar === -1) {
-        return res.status(404).json({ mensaje: "Usuario no encontrado" })
-    }
-    if (!nombre_a_actualizar) {
-        return res.status(400).json({ mensaje: "Falta el nombre" })
-    }
-    usuarios[indice_a_actualizar].nombre = nombre_a_actualizar
-    res.json(usuarios[indice_a_actualizar])
+    const body = req.body
+    const id = req.params.id
+    const resultado = usuarioServicio.actualizarUsuarioporIdServicio(id, body)
+   if(resultado === "falta nombre" ){
+    return res.status(400).send(resultado)
+   }
+    if(resultado === null){
+     return res.status(404).send("no se realizo la actualizacion")
+   }
+    res.json(resultado)
 }
 
 const eliminarUsuarioPorId = (req,res)=>{

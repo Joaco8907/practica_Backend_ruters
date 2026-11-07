@@ -8,19 +8,13 @@ router.get("/prueba", (req, res) => {
 });
 
 router.get("/", usuariosController.obtenerUsuarios);
-
 router.post("/", usuariosController.crearUsuario);
-
-router.get("/buscar", usuariosController.buscarUsuarioPorNombre)
-
-
+router.get("/buscar", usuariosController.buscarUsuarioPorNombre);
 
 //metodos por Id.
 router.get("/:id", usuariosController.obtenerUsuariosPorId);
-
-router.patch("/:id", usuariosController.ActualizarUsuarioPorId)
-
-router.delete("/:id", usuariosController.eliminarUsuarioPorId)    
-
+router.patch("/:id", usuariosController.ActualizarUsuarioPorId);
+router.put("/:id",usuariosController.ActualizarUsuarioPorId);
+router.delete("/:id", usuariosController.eliminarUsuarioPorId);    
 
 module.exports = router;

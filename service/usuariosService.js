@@ -1,8 +1,9 @@
 const usuarios = require("../datos/usuarios.js");
 
-const listarUsuarios = () => usuarios;
+const listarUsuariosServicio = () => usuarios.sort((a,b)=> a.id - b.id);
 
-const crearUsuario = (nuevoUsuario) => {
+
+const crearUsuarioServicio = (nuevoUsuario) => {
   if (!nuevoUsuario ||!nuevoUsuario.nombre) {
     return null;
   }
@@ -10,9 +11,9 @@ const crearUsuario = (nuevoUsuario) => {
   return nuevoUsuario;
 };
 
-const buscarUsuarioPorNombre = (nombre) =>{
+const buscarUsuarioPorNombreServicio = (nombre) =>{
     const resultado = usuarios.find(busco => busco.nombre === nombre)
-    
+
     if(resultado === undefined){
         return null
     }
@@ -20,9 +21,8 @@ const buscarUsuarioPorNombre = (nombre) =>{
 }
 
 
-
 //Funciones por id
-const buscarUsuarioPorId = id =>{
+const buscarUsuarioPorIdServicio = id =>{
     const resultado = usuarios.
     find(usuario => usuario.id === parseInt(id))
     if(resultado === undefined){
@@ -31,10 +31,28 @@ const buscarUsuarioPorId = id =>{
     return resultado
 }
 
+const actualizarUsuarioporIdServicio = (id, body) =>{
+  if(!body || !body.nombre){
+    return "falta nombre"
+  }
+  const indiceActualizar = usuarios.findIndex(usuario => usuario.id === parseInt(id))
+  if(indiceActualizar === -1 ){
+    return null
+  }
+  usuarios[indiceActualizar] = { ...usuarios[indiceActualizar],
+    ...body}
+  return usuarios[indiceActualizar]
+}
+
+const eliminarUsuarioServicio = (id)=>{
+  
+}
+
 
 module.exports = {
-  listarUsuarios,
-  buscarUsuarioPorId,
-  crearUsuario,
-  buscarUsuarioPorNombre
+  listarUsuariosServicio,
+  buscarUsuarioPorIdServicio,
+  crearUsuarioServicio,
+  buscarUsuarioPorNombreServicio,
+  actualizarUsuarioporIdServicio
 };
