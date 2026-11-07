@@ -1,4 +1,4 @@
-GET HTTP://127.0.0.1:3000/usuarios/8
+GET HTTP://127.0.0.1:3000/usuarios/3
 
 ###
 
@@ -49,4 +49,4 @@ Content-Type: application/json
 ###
 
 //request con query params..
-GET HTTP://127.0.0.1:3000/usuarios/buscar?nombre=Pedro
+GET HTTP://127.0.0.1:3000/usuarios/buscar?nombre=Joaquin
