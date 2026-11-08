@@ -14,7 +14,7 @@ post HTTP://127.0.0.1:3000/usuarios
 Content-Type: application/json
 
 {
-  "id": 8,
+  
   "nombre": "pepe"
 }
 

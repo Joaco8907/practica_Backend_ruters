@@ -14,8 +14,11 @@ const buscarUsuarioPorNombreRepository = (nombre) =>{
 
 const crearUsuarioRepository = 
 (nuevoUsuario) =>{
-    usuarios.push(nuevoUsuario)
-    return nuevoUsuario
+    const idAsignado = nuevoUsuario.id || usuarios.length +1
+    const usuario = {id:idAsignado, ...nuevoUsuario}
+
+    usuarios.push(usuario)
+    return usuario
 }
 
 
