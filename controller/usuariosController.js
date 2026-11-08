@@ -40,7 +40,7 @@ const actualizarUsuarioPorId = (req, res) => {
   const id = req.params.id;
   const resultado = usuarioServicio.actualizarUsuarioporIdServicio(id, body);
   if (resultado === "datos invalidos") {
-    return res.status(400).json({ mensaje: resultado });
+    return res.status(400).json({ mensaje: "Datos invalidos" });
   }
   if (resultado === null) {
     return res.status(404).json({ mensaje: "Usuario no encontrado" });

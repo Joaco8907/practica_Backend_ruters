@@ -2,7 +2,7 @@ GET HTTP://127.0.0.1:3000/api/usuarios
 
 ###
 
-GET HTTP://127.0.0.1:3000/api/usuarios/5
+GET HTTP://127.0.0.1:3000/api/usuarios/3
 
 ###
 
@@ -14,8 +14,10 @@ post HTTP://127.0.0.1:3000/api/usuarios
 Content-Type: application/json
 
 {
-  
-  "nombre": "pepe"
+  "nombre": "Manuel",
+  "email": "Manuel@example.com",
+  "tipo_usuario": "candidato",
+  "fecha_registro": "2026-10-03T10:00:00"
 }
 
 
@@ -25,7 +27,9 @@ PATCH   HTTP://127.0.0.1:3000/api/usuarios/3
 Content-Type: application/json
 
 {
-  "nombre": "Augusto"
+  "nombre": "Manuel",
+  "email": "Manuel@example.com",
+  "tipo_usuario": "candidato"
 }
 
 

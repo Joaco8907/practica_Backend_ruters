@@ -1,29 +1,54 @@
-const usuarios = require("../datos/usuarios.js")
+const BD = require("../datos/usuarios.js")
 
-const listarUsuariosRepository = () => usuarios;
+const listarUsuariosRepository = () => BD;
 
 const buscarUsuarioPorIdRepository = (id) =>{
-    const usuario = usuarios.find(usuario => usuario.id === parseInt(id))    
+    const usuario = BD.find(usuario => usuario.id === parseInt(id))    
     return (usuario)
 }
 
 const buscarUsuarioPorNombreRepository = (nombre) =>{
-    const usuario = usuarios.find(busco => busco.nombre === nombre)
+    const usuario = BD.find(busco => busco.nombre === nombre)
     return usuario;
 }
 
 const crearUsuarioRepository = 
 (nuevoUsuario) =>{
-    const idAsignado = nuevoUsuario.id || usuarios.length +1
+    const idAsignado = nuevoUsuario.id || BD.length +1
     const usuario = {id:idAsignado, ...nuevoUsuario}
 
-    usuarios.push(usuario)
+    BD.push(usuario)
     return usuario
 }
+
+const actualizarUsuarioRepository = (id, cambios) => {
+    const indiceActualizar = BD.findIndex(
+    (usuario) => usuario.id === parseInt(id));
+    if (indiceActualizar === -1) {
+    return null;
+    }
+    BD[indiceActualizar] = {...BD[indiceActualizar], ...cambios}
+    const resultado = BD[indiceActualizar]
+    return resultado;
+}
+
+const eliminarUsuarioRepository = (id)=>{
+    const indiceBorrar = BD.findIndex
+    (usuario =>usuario.id === parseInt(id));
+    if(indiceBorrar === -1){
+        return null
+    }
+    const usuarioBorrado = BD.splice(indiceBorrar, 1)
+    return usuarioBorrado
+}
+
+
 
 
 module.exports = {listarUsuariosRepository,
                 buscarUsuarioPorIdRepository,
                 buscarUsuarioPorNombreRepository,
-                crearUsuarioRepository
+                crearUsuarioRepository,
+                actualizarUsuarioRepository,
+                eliminarUsuarioRepository
                 }
