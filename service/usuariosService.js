@@ -10,15 +10,17 @@ const listarUsuariosServicio = () =>{
 } 
 
 const crearUsuarioServicio = (nuevoUsuario) => {
-  if (!nuevoUsuario ||!nuevoUsuario.nombre) {
-    return null;
-  }
-  usuarios.push(nuevoUsuario);
-  return nuevoUsuario;
-};
+    if (!nuevoUsuario || typeof nuevoUsuario !== "object" || Array.isArray(nuevoUsuario)) {
+        return null
+    }
+    if (Object.values(nuevoUsuario).some(valor => valor === null || valor === undefined)) {
+        return null
+    }
+    return usuariosRepository.crearUsuarioRepository(nuevoUsuario)
+}
 
 const buscarUsuarioPorNombreServicio = (nombre) =>{
-    const resultado = usuarios.find(busco => busco.nombre === nombre)
+    const resultado = usuariosRepository.buscarUsuarioPorNombreRepository(nombre)
     if(resultado === undefined){
         return null
     }
