@@ -35,7 +35,7 @@ const obtenerUsuariosPorId = (req, res) => {
   res.json(resultado);
 };
 
-const ActualizarUsuarioPorId = (req, res) => {
+const actualizarUsuarioPorId = (req, res) => {
   const body = req.body;
   const id = req.params.id;
   const resultado = usuarioServicio.actualizarUsuarioporIdServicio(id, body);
@@ -63,6 +63,6 @@ module.exports = {
   obtenerUsuariosPorId,
   crearUsuario,
   buscarUsuarioPorNombre,
-  ActualizarUsuarioPorId,
+  actualizarUsuarioPorId,
   eliminarUsuarioPorId,
 };

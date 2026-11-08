@@ -19,7 +19,6 @@ const crearUsuarioServicio = (nuevoUsuario) => {
 
 const buscarUsuarioPorNombreServicio = (nombre) =>{
     const resultado = usuarios.find(busco => busco.nombre === nombre)
-
     if(resultado === undefined){
         return null
     }
@@ -29,8 +28,7 @@ const buscarUsuarioPorNombreServicio = (nombre) =>{
 
 //Funciones por id
 const buscarUsuarioPorIdServicio = id =>{
-    const resultado = usuarios.
-    find(usuario => usuario.id === parseInt(id))
+    const resultado = usuariosRepository.buscarUsuarioPorIdRepository(id)
     if(resultado === undefined){
         return null
     }
