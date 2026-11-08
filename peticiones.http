@@ -1,16 +1,16 @@
-GET HTTP://127.0.0.1:3000/usuarios
+GET HTTP://127.0.0.1:3000/api/usuarios
 
 ###
 
-GET HTTP://127.0.0.1:3000/usuarios/5
+GET HTTP://127.0.0.1:3000/api/usuarios/5
 
 ###
 
 //request con query params..
-GET HTTP://127.0.0.1:3000/usuarios/buscar?nombre=Joaquin
+GET HTTP://127.0.0.1:3000/api/usuarios/buscar?nombre=Joaquin
 
 ###
-post HTTP://127.0.0.1:3000/usuarios
+post HTTP://127.0.0.1:3000/api/usuarios
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 
 ###
 
-PATCH   HTTP://127.0.0.1:3000/usuarios/3
+PATCH   HTTP://127.0.0.1:3000/api/usuarios/3
 Content-Type: application/json
 
 {
@@ -31,6 +31,6 @@ Content-Type: application/json
 
 
 ###
-DELETE  HTTP://127.0.0.1:3000/usuarios/3
+DELETE  HTTP://127.0.0.1:3000/api/usuarios/3
 
 

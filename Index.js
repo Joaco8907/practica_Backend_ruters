@@ -7,7 +7,7 @@ const PORT = 3000
 
 app.use(express.json())
 
-app.use("/usuarios", routerUsuarios) 
+app.use("/api/usuarios", routerUsuarios) 
 
 
 app.listen(PORT, HOSTNAME, () => {
