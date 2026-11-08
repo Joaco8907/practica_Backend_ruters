@@ -1,5 +1,4 @@
 const usuariosRepository = require("../repository/usuariosRepository.js");
-const usuarios = require("../datos/usuarios.js");
 
 const listarUsuariosServicio = () => {
   const listaUsuarios = usuariosRepository.listarUsuariosRepository();
