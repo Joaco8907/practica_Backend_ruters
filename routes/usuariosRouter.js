@@ -14,7 +14,6 @@ router.get("/buscar", usuariosController.buscarUsuarioPorNombre);
 //metodos por Id.
 router.get("/:id", usuariosController.obtenerUsuariosPorId);
 router.patch("/:id", usuariosController.actualizarUsuarioPorId);
-router.put("/:id",usuariosController.actualizarUsuarioPorId);
 router.delete("/:id", usuariosController.eliminarUsuarioPorId);    
 
 module.exports = router;

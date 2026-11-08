@@ -14,18 +14,10 @@ post HTTP://127.0.0.1:3000/usuarios
 Content-Type: application/json
 
 {
-  "id": 3,
+  "id": 8,
   "nombre": "pepe"
 }
 
-###
-//esto es para demostrar que no se puede crear un usuario sin todos sus datos
-post HTTP://127.0.0.1:3000/usuarios
-Content-Type: application/json
-
-{
-  "id": 5
-}
 
 ###
 
@@ -36,14 +28,7 @@ Content-Type: application/json
   "nombre": "Augusto"
 }
 
-###
-put HTTP://127.0.0.1:3000/usuarios/3
-Content-Type: application/json
 
-{
-  "id" : 3,
-  "nombre": "pepe"
-}
 
 ###
 DELETE  HTTP://127.0.0.1:3000/usuarios/3

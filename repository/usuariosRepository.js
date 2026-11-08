@@ -12,12 +12,15 @@ const buscarUsuarioPorNombreRepository = (nombre) =>{
     return usuario;
 }
 
-const crearUsuarioRepository = (body) =>{
-    
+const crearUsuarioRepository = 
+(nuevoUsuario) =>{
+    usuarios.push(nuevoUsuario)
+    return nuevoUsuario
 }
 
 
 module.exports = {listarUsuariosRepository,
                 buscarUsuarioPorIdRepository,
-                buscarUsuarioPorNombreRepository
+                buscarUsuarioPorNombreRepository,
+                crearUsuarioRepository
                 }
