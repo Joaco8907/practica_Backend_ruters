@@ -1,7 +1,13 @@
-const usuarios = require("../datos/usuarios.js");
+const usuariosRepository = require("../repository/usuariosRepository.js")
+const usuarios = require ("../datos/usuarios.js")
 
-const listarUsuariosServicio = () => usuarios.sort((a,b)=> a.id - b.id);
 
+
+const listarUsuariosServicio = () =>{
+  const listaUsuarios = usuariosRepository.listarUsuariosRepository()
+  listaUsuarios.sort((a,b)=> a.id - b.id); 
+  return listaUsuarios 
+} 
 
 const crearUsuarioServicio = (nuevoUsuario) => {
   if (!nuevoUsuario ||!nuevoUsuario.nombre) {
