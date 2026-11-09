@@ -1,33 +1,84 @@
 <h1>Gestión de usuarios</h1>
 <p>Este es nuestro primer componente independiente.</p>
 
-<h2>Usuarios registrados: {{usuarios.length}}</h2>
+<h2>Usuarios registrados: {{ cantidadUsuarios() }}</h2>
+<h2>Usuarios candidatos: {{ cantidadCandidatos() }}</h2>
+<h2>Usuarios Empresa: {{ cantidadEmpresas() }}</h2>
+
 
 <h2>{{ titulo() }}</h2>
 
 <p>Componente de usuarios</p>
 
-<button (click) = "solicitarCambioTitulo()">
-    Solicitar cambio de titulo
-</button>
+<button (click)="solicitarCambioTitulo()">Solicitar cambio de titulo</button>
+
+<br><br>
+<label for="nuevoNombre">Nuevo nombre: </label>
+
+<input 
+    #campoNombre
+    id="nuevoNombre" 
+    type="text" 
+    placeholder="Ingrese un nombre"
+    (input) = "nuevoNombre.set(campoNombre.value)" 
+    [value] = "nuevoNombre()"
+/>
+<p>Nombre ingresado: {{nuevoNombre()}}</p>
+
+<br><br>
+<label for="nuevoEmail">Nuevo Email: </label>
+<input 
+#campoEmail
+id="nuevoEmail"
+type="email"
+placeholder = "Ingrese un Email"
+(input) = "nuevoEmail.set(campoEmail.value)"
+[value] = "nuevoEmail()"
+/>
+<p>Email ingresado: {{nuevoEmail()}}</p>
+
+<br><br>
+<label for="tipoUsuario">Elija el tipo de usuario: </label>
+
+<select 
+#campoTipo 
+id="tipoUsuario"
+(change) = "tipoUsuario.set(campoTipo.value)"
+[value] = "tipoUsuario()"
+>
+  <option value="" disabled>Seleccione un tipo: </option>
+  <option value="Candidato">Candidato</option>
+  <option value="Empresa">Empresa</option>
+</select>
+<p>Tipo usuario seleccionado: {{tipoUsuario()}}</p>
+
+<br>
+<button 
+[disabled]="!datosCompletos()" 
+(click)="crearUsuario()"
+>crear usuario</button>
+
+<br><br><br>
+
 
 <h2>LISTADO DE USUARIOS</h2>
 
-@for (usuario of usuarios; track usuario.id){
-    <br>
-    <p>NOMBRE: {{ usuario.nombre }}</p>
-    <button (click) = "seleccionarUsuario(usuario.id)">
-        Seleccionar usuario
-    </button>
-    <p>ID: {{ usuario.id }}</p>
-    <p>EMAIL: {{ usuario.email }}</p>
-    <p>TIPO DE USUARIO: {{usuario.tipo_usuario}}</p>
-    <p>FECHA DE REGISTRO: {{ usuario.fecha_registro }}</p>
-    @if (usuario.tipo_usuario === "Candidato"){
-        <p>Puede cargar su CV</p>
-    }@else{
-        <p>Puede publicar ofertas laborales</p>
-    }
-}@empty{
-    <p>No hay usuarios registrados</p>
+@for (usuario of usuarios(); track usuario.id) {
+  <br />
+  <p>NOMBRE: {{ usuario.nombre }}</p>
+  <button (click)="modificarNombreUsuario(usuario.id, nuevoNombre())" [disabled]="nuevoNombre().trim() === '' ">Cambiar Nombre</button>
+  <p>Longitud del nombre: {{ usuario.nombre.length }}</p>
+  <p>ID: {{ usuario.id }}</p>
+  <p>EMAIL: {{ usuario.email }}</p>
+  <p>TIPO DE USUARIO: {{ usuario.tipo_usuario }}</p>
+  <p>FECHA DE REGISTRO: {{ usuario.fecha_registro }}</p>
+  @if (usuario.tipo_usuario === 'Candidato') {
+    <p>Puede cargar su CV</p>
+  } @else {
+    <p>Puede publicar ofertas laborales</p>
+  }
+  <button (click)="seleccionarUsuario(usuario.id)">Seleccionar usuario</button>
+  <button (click)="eliminarUsuario(usuario.id)">Eliminar usuario</button>
+} @empty {
+  <p>No hay usuarios registrados</p>
 }
