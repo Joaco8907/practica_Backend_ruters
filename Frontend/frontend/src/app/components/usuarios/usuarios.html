@@ -1,0 +1,33 @@
+<h1>Gestión de usuarios</h1>
+<p>Este es nuestro primer componente independiente.</p>
+
+<h2>Usuarios registrados: {{usuarios.length}}</h2>
+
+<h2>{{ titulo() }}</h2>
+
+<p>Componente de usuarios</p>
+
+<button (click) = "solicitarCambioTitulo()">
+    Solicitar cambio de titulo
+</button>
+
+<h2>LISTADO DE USUARIOS</h2>
+
+@for (usuario of usuarios; track usuario.id){
+    <br>
+    <p>NOMBRE: {{ usuario.nombre }}</p>
+    <button (click) = "seleccionarUsuario(usuario.id)">
+        Seleccionar usuario
+    </button>
+    <p>ID: {{ usuario.id }}</p>
+    <p>EMAIL: {{ usuario.email }}</p>
+    <p>TIPO DE USUARIO: {{usuario.tipo_usuario}}</p>
+    <p>FECHA DE REGISTRO: {{ usuario.fecha_registro }}</p>
+    @if (usuario.tipo_usuario === "Candidato"){
+        <p>Puede cargar su CV</p>
+    }@else{
+        <p>Puede publicar ofertas laborales</p>
+    }
+}@empty{
+    <p>No hay usuarios registrados</p>
+}

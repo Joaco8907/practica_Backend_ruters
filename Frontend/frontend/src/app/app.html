@@ -1,0 +1,13 @@
+<h1>CVMatch</h1>
+
+<button (click)="cambiarTitulo()">cambiar titulo</button>
+
+<app-usuarios
+  [titulo]="title()"
+  (cambioSolicitado)="cambiarTitulo()"
+  (usuarioSeleccionado)="mostrarUsuario($event)"
+/>
+@if (usuarioSeleccionado() !== null) {
+  <p>Usuario seleccionado: {{ usuarioSeleccionado() }}</p>
+}
+<router-outlet />
