@@ -1,5 +1,6 @@
-import { Component, input, output, signal, computed } from '@angular/core';
-import type { Iusuarios } from '../../models/Iusuarios';
+import { Component, input, output, signal, computed, inject } from '@angular/core';
+import { UsuariosService } from '../../Services/usuarios.service'
+import { Iusuarios } from '../../models/Iusuarios';
 
 
 @Component({
@@ -11,42 +12,25 @@ import type { Iusuarios } from '../../models/Iusuarios';
 export class Usuarios {
 
   titulo = input<string>('');
+  private readonly usuariosService = inject(UsuariosService)
+  protected readonly usuarios = this.usuariosService.usuarios;
+  protected readonly usuariosApi = signal<Iusuarios[]>([])
 
-  protected readonly usuarios = signal<Iusuarios[]>([{
-    id: 1,
-    nombre: "Ana",
-    email: "ana@example.com",
-    tipo_usuario: "Candidato",
-    fecha_registro: "2026-10-01T10:00:00"
-  }, {
-    id: 2,
-    nombre: "Luis",
-    email: "luis@example.com",
-    tipo_usuario: "Empresa",
-    fecha_registro: "2026-10-02T11:30:00"
-  },
-  {
-    id: 3,
-    nombre: "Sergio",
-    email: "sergio@example.com",
-    tipo_usuario: "Candidato",
-    fecha_registro: "2026-10-03T09:15:00"
-  }]);
 
-  protected readonly cantidadUsuarios = computed(() => this.usuarios().length);
+  protected readonly cantidadUsuarios = computed(() => this.usuariosService.usuarios().length);
   cambioSolicitado = output<void>();
 
-  protected readonly cantidadCandidatos = computed(() => this.usuarios().filter(usuario => usuario.tipo_usuario === "Candidato").length)
+  protected readonly cantidadCandidatos = computed(() => this.usuariosService.usuarios().filter(usuario => usuario.tipo_usuario === "Candidato").length)
 
-  protected readonly cantidadEmpresas = computed(() => this.usuarios().filter(usuario => usuario.tipo_usuario === "Empresa").length)
+  protected readonly cantidadEmpresas = computed(() => this.usuariosService.usuarios().filter(usuario => usuario.tipo_usuario === "Empresa").length)
 
-  private ultimoID = signal(Math.max(0, ...this.usuarios().map(usuario => usuario.id)))
 
   protected readonly nuevoNombre = signal<string>('')
   protected readonly nuevoEmail = signal<string>('')
   protected readonly tipoUsuario = signal<string>('')
-  protected readonly datosCompletos = computed(()=>{
-    if(this.nuevoNombre().trim() === "" || this.nuevoEmail().trim() ==="" || !this.nuevoEmail().includes("@") || this.tipoUsuario() === ""){
+
+  protected readonly datosCompletos = computed(() => {
+    if (this.nuevoNombre().trim() === "" || this.nuevoEmail().trim() === "" || !this.nuevoEmail().includes("@") || this.tipoUsuario() === "") {
       return false
     }
     return true
@@ -64,52 +48,43 @@ export class Usuarios {
   }
 
   public crearUsuario(): void {
-    if(!this.datosCompletos()){
+    if (!this.datosCompletos()) {
       return;
     }
-    this.ultimoID.update(valor => valor + 1)
-    const nuevoId = this.ultimoID()
-    const nuevoUsuario: Iusuarios = {
-      id: nuevoId,
-      nombre: this.nuevoNombre(),
-      email: this.nuevoEmail(),
-      tipo_usuario: this.tipoUsuario(),
-      fecha_registro: "2026-10-05T09:10:44"
-    };
-    this.usuarios.update((usuarios) => [...usuarios, nuevoUsuario]);
+    const respuestaService = this.usuariosService.crearUsuarioService(
+      this.nuevoNombre(),
+      this.nuevoEmail(),
+      this.tipoUsuario()
+    );
 
-    this.nuevoNombre.set('')
-    this.nuevoEmail.set('')
-    this.tipoUsuario.set('')
+    if(respuestaService){
+      this.nuevoNombre.set('');
+      this.nuevoEmail.set('');
+      this.tipoUsuario.set('');
+    }
   }
 
   public eliminarUsuario(id: number): void {
-    this.usuarios.update(usuarios => usuarios.filter(usuario => usuario.id !== id))
+    this.usuariosService.eliminarUsuarioService(id);
+
   }
 
   public modificarNombreUsuario(id: number, nombreEnviado: string): void {
-    if (nombreEnviado.trim() === "") {
-      return;
-    }
-    const nombre = nombreEnviado
-      .trim()
-      .split(" ")
-      .filter(palabra => palabra !== "")
-      .join(" ")
-
-    
-    this.usuarios.update(usuarioActual => {
-      return usuarioActual.map(usuario => {
-        if (usuario.id === id) {
-
-          return { ...usuario, nombre }
-        }
-        return usuario
-      })
-    })
+    this.usuariosService.modificarNombreUsuarioService(id, nombreEnviado)
     this.nuevoNombre.set('')
   }
 
+  public consultarUsuariosApi(): void {
+    this.usuariosService.obtenerUsuariosApi().subscribe({
+      next: (usuarios) =>{
+        console.log("usuarios api: ", usuarios);
+        this.usuariosApi.set(usuarios);
+      },
+      error: (error) => {
+        console.error("Error al consultar Api", error)
+      }
+    })
+  }
 
 }
 

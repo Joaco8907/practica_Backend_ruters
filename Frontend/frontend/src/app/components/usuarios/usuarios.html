@@ -82,3 +82,20 @@ id="tipoUsuario"
 } @empty {
   <p>No hay usuarios registrados</p>
 }
+
+<button (click)="consultarUsuariosApi()">
+  Consultar usuarios desde la Api
+</button>
+<p>Usuarios recibidos de api: {{usuariosApi().length}}</p>
+<br><br>
+@for (usuario of usuariosApi(); track usuario.id) {
+  <br />
+  <p>NOMBRE: {{ usuario.nombre }}</p>
+  <p>EMAIL: {{ usuario.email }}</p>
+  @if (usuario.tipo_usuario === 'Candidato') {
+    <p>Puede cargar su CV</p>
+  } @else {
+    <p>Puede publicar ofertas laborales</p>
+  }} @empty {
+  <p>No hay usuarios traidos de la api todavia</p>
+}
