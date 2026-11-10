@@ -15,7 +15,8 @@ export class Usuarios {
   private readonly usuariosService = inject(UsuariosService)
   protected readonly usuarios = this.usuariosService.usuarios;
   protected readonly usuariosApi = signal<Iusuarios[]>([])
-
+  protected readonly cargandoUsuarios = signal(false)
+  protected readonly errorUsuarios = signal('');
 
   protected readonly cantidadUsuarios = computed(() => this.usuariosService.usuarios().length);
   cambioSolicitado = output<void>();
@@ -75,13 +76,18 @@ export class Usuarios {
   }
 
   public consultarUsuariosApi(): void {
+    this.errorUsuarios.set('')
+    this.cargandoUsuarios.set(true)
     this.usuariosService.obtenerUsuariosApi().subscribe({
       next: (usuarios) =>{
-        console.log("usuarios api: ", usuarios);
         this.usuariosApi.set(usuarios);
+        this.cargandoUsuarios.set(false)
       },
       error: (error) => {
         console.error("Error al consultar Api", error)
+        this.cargandoUsuarios.set(false)
+        this.errorUsuarios.set("No se pudieron obtener los usuarios de la API")
+        this.usuariosApi.set([])
       }
     })
   }
